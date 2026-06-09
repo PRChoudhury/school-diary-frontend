@@ -12,14 +12,20 @@
   }
 }
 
+.upload-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
 .upload-zone {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 220px;
-  padding: 2rem;
+  min-height: 160px;
+  padding: 1.5rem 1rem;
   border: 2px dashed var(--color-border);
   border-radius: 1rem;
   background: var(--color-surface);
@@ -37,12 +43,20 @@
 
   .upload-title {
     font-weight: 600;
+    font-size: 0.95rem;
   }
 
   .upload-sub {
     font-size: 0.8rem;
     color: var(--color-text-muted);
   }
+}
+
+.upload-hint {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
 }
 
 .preview-card {

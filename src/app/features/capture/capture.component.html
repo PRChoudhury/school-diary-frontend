@@ -19,17 +19,32 @@
       </div>
     </div>
   } @else {
-    <label class="upload-zone">
-      <input
-        type="file"
-        accept="image/*"
-        (change)="onFileSelected($event)"
-        hidden
-      />
-      <span class="upload-icon" aria-hidden="true">📷</span>
-      <span class="upload-title">Open camera or choose photo</span>
-      <span class="upload-sub">JPG, PNG · handwriting works best</span>
-    </label>
+    <div class="upload-options">
+      <label class="upload-zone">
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+        <span class="upload-icon" aria-hidden="true">📷</span>
+        <span class="upload-title">Take photo</span>
+        <span class="upload-sub">Open camera</span>
+      </label>
+      <label class="upload-zone">
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+        <span class="upload-icon" aria-hidden="true">🖼️</span>
+        <span class="upload-title">Choose photo</span>
+        <span class="upload-sub">Pick from gallery</span>
+      </label>
+    </div>
+    <p class="upload-hint">JPG, PNG · handwriting works best</p>
   }
 
   @if (error(); as msg) {
