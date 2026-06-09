@@ -1,0 +1,29 @@
+<div class="app-shell">
+  <header class="app-header">
+    <h1>School Diary</h1>
+    <p class="tagline">Scan notes · Get reminders</p>
+  </header>
+
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a routerLink="/capture" routerLinkActive="active">
+      <span class="nav-icon" aria-hidden="true">📷</span>
+      Scan
+    </a>
+    <a routerLink="/notes" routerLinkActive="active">
+      <span class="nav-icon" aria-hidden="true">📝</span>
+      Notes
+    </a>
+    <a routerLink="/calendar" routerLinkActive="active">
+      <span class="nav-icon" aria-hidden="true">📅</span>
+      Calendar
+    </a>
+    <a routerLink="/settings" routerLinkActive="active">
+      <span class="nav-icon" aria-hidden="true">⚙️</span>
+      Settings
+    </a>
+  </nav>
+</div>

@@ -1,0 +1,221 @@
+.page {
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1rem;
+  }
+
+  .hint {
+    margin: 0 0 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+
+    &.subtle {
+      margin-top: -0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.summary-block {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-border);
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+}
+
+.warning {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 0.875rem;
+}
+
+.category-section {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+}
+
+.teacher-section {
+  background: #f5f3ff;
+  border-color: #c4b5fd;
+}
+
+.student-section {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.category-header {
+  margin-bottom: 1rem;
+
+  p {
+    margin: 0.35rem 0 0;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.teacher-badge {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.student-badge {
+  background: #2563eb;
+  color: #fff;
+}
+
+.empty-category {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.category-card {
+  margin-bottom: 0.75rem;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+
+  label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font: inherit;
+    resize: vertical;
+  }
+}
+
+.teacher-card {
+  border-left: 4px solid #7c3aed;
+}
+
+.student-card {
+  border-left: 4px solid #2563eb;
+}
+
+.student-card-header {
+  margin-bottom: 0.35rem;
+}
+
+.point-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  text-transform: uppercase;
+}
+
+.sub-points {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  li {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+
+    input {
+      flex: 1;
+      padding: 0.45rem 0.6rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.4rem;
+      font: inherit;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.event-card {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
+}
+
+.full {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.btn-text {
+  margin-top: 0.5rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  &.danger {
+    color: #b91c1c;
+  }
+}
+
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

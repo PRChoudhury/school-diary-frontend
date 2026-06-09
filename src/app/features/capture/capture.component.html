@@ -1,0 +1,39 @@
+<section class="page">
+  <h2>Scan diary note</h2>
+  <p class="hint">Take a photo or upload an image.</p>
+
+  @if (previewUrl(); as url) {
+    <div class="preview-card">
+      <img [src]="url" alt="Diary note preview" />
+      <div class="preview-actions">
+        <button type="button" class="btn btn-secondary" (click)="discardImage()" [disabled]="extracting()">
+          Choose another
+        </button>
+        <button type="button" class="btn btn-primary" (click)="extractText()" [disabled]="extracting()">
+          @if (extracting()) {
+            Extracting…
+          } @else {
+            Extract text
+          }
+        </button>
+      </div>
+    </div>
+  } @else {
+    <label class="upload-zone">
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+      <span class="upload-icon" aria-hidden="true">📷</span>
+      <span class="upload-title">Open camera or choose photo</span>
+      <span class="upload-sub">JPG, PNG · handwriting works best</span>
+    </label>
+  }
+
+  @if (error(); as msg) {
+    <p class="error" role="alert">{{ msg }}</p>
+  }
+</section>

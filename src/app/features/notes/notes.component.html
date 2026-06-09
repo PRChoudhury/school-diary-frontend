@@ -1,0 +1,33 @@
+<section class="page">
+  <h2>Past notes</h2>
+  <p class="hint">Saved diary entries (text only — no images stored).</p>
+
+  @if (loading()) {
+    <p class="hint">Loading notes…</p>
+  } @else if (error()) {
+    <div class="empty">
+      <p>{{ error() }}</p>
+      <button type="button" class="btn btn-primary" (click)="retry()">Retry</button>
+    </div>
+  } @else if (notes().length === 0) {
+    <div class="empty">
+      <p>No notes yet.</p>
+      <a routerLink="/capture" class="btn btn-primary">Scan your first note</a>
+    </div>
+  } @else {
+    <ul class="note-list">
+      @for (note of notes(); track note.id) {
+        <li>
+          <a [routerLink]="['/notes', note.id]" class="note-card">
+            <div class="note-header">
+              <strong>{{ note.title }}</strong>
+              <time>{{ note.created_at | date: 'mediumDate' }}</time>
+            </div>
+            <p class="excerpt">{{ note.raw_text }}</p>
+            <span class="badge">{{ note.events.length }} event(s)</span>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

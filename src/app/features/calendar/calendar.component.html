@@ -1,0 +1,34 @@
+<section class="page">
+  <div class="calendar-header">
+    <button type="button" class="btn-icon" (click)="prevMonth()" aria-label="Previous month">‹</button>
+    <h2>{{ monthLabel() }}</h2>
+    <button type="button" class="btn-icon" (click)="nextMonth()" aria-label="Next month">›</button>
+  </div>
+
+  @if (events().length === 0) {
+    <div class="empty">
+      <p>No events this month.</p>
+      <a routerLink="/capture" class="btn btn-primary">Scan a note</a>
+    </div>
+  } @else {
+    <ul class="event-list">
+      @for (event of events(); track event.id) {
+        <li>
+          <a [routerLink]="['/notes', event.noteId]" class="event-row">
+            <div class="date-col">
+              <span class="day">{{ event.event_date | date: 'd' }}</span>
+              <span class="weekday">{{ event.event_date | date: 'EEE' }}</span>
+            </div>
+            <div class="info-col">
+              <strong>{{ event.title }}</strong>
+              <span class="meta">
+                {{ event.event_type }} · {{ event.noteTitle }}
+              </span>
+              <time>{{ event.event_date | date: 'shortTime' }}</time>
+            </div>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

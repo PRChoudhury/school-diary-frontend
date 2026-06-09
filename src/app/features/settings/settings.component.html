@@ -1,0 +1,100 @@
+<section class="page">
+  <h2>Notification settings</h2>
+  <p class="hint">Configure how you receive reminders before diary dates. (Backend not connected yet.)</p>
+
+  <form class="settings-form" (ngSubmit)="$event.preventDefault()">
+    <fieldset>
+      <legend>Channels</legend>
+
+      <label class="checkbox-row">
+        <input
+          type="checkbox"
+          [checked]="prefs().email_enabled"
+          (change)="update('email_enabled', $any($event.target).checked)"
+        />
+        Email reminders
+      </label>
+
+      <label class="checkbox-row">
+        <input
+          type="checkbox"
+          [checked]="prefs().sms_enabled"
+          (change)="update('sms_enabled', $any($event.target).checked)"
+        />
+        SMS reminders
+      </label>
+    </fieldset>
+
+    @if (prefs().email_enabled) {
+      <div class="field">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          [ngModel]="prefs().email"
+          (ngModelChange)="update('email', $event)"
+          name="email"
+          placeholder="you@example.com"
+        />
+      </div>
+    }
+
+    @if (prefs().sms_enabled) {
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input
+          id="phone"
+          type="tel"
+          [ngModel]="prefs().phone"
+          (ngModelChange)="update('phone', $event)"
+          name="phone"
+          placeholder="+1 555 000 0000"
+        />
+      </div>
+    }
+
+    <fieldset>
+      <legend>Default reminder timing</legend>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="leadDays">Days before</label>
+          <input
+            id="leadDays"
+            type="number"
+            min="0"
+            max="30"
+            [ngModel]="prefs().default_lead_days"
+            (ngModelChange)="update('default_lead_days', +$event)"
+            name="leadDays"
+          />
+        </div>
+        <div class="field">
+          <label for="leadHours">Hours before</label>
+          <input
+            id="leadHours"
+            type="number"
+            min="0"
+            max="23"
+            [ngModel]="prefs().default_lead_hours"
+            (ngModelChange)="update('default_lead_hours', +$event)"
+            name="leadHours"
+          />
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="timezone">Timezone</label>
+      <input
+        id="timezone"
+        type="text"
+        [ngModel]="prefs().timezone"
+        (ngModelChange)="update('timezone', $event)"
+        name="timezone"
+      />
+    </div>
+  </form>
+
+  <p class="saved-hint">Settings saved locally on this device.</p>
+</section>

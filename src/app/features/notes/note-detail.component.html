@@ -1,0 +1,68 @@
+@if (note(); as n) {
+  <section class="page">
+    <a routerLink="/notes" class="back-link">← All notes</a>
+
+    <header class="detail-header">
+      <h2>{{ n.title }}</h2>
+      <time>Saved {{ n.created_at | date: 'medium' }}</time>
+    </header>
+
+    @if (n.extracted_json?.categories?.teacher_notes?.length) {
+      <section class="category-section teacher-section">
+        <div class="category-header">
+          <span class="category-badge teacher-badge">Teacher notes</span>
+        </div>
+        @for (item of n.extracted_json!.categories!.teacher_notes; track $index) {
+          <article class="category-card teacher-card">
+            <p>{{ item }}</p>
+          </article>
+        }
+      </section>
+    }
+
+    @if (n.extracted_json?.categories?.student_notes?.length) {
+      <section class="category-section student-section">
+        <div class="category-header">
+          <span class="category-badge student-badge">Student notes</span>
+        </div>
+        @for (item of n.extracted_json!.categories!.student_notes; track $index) {
+          <article class="category-card student-card">
+            <span class="point-badge">Note {{ $index + 1 }}</span>
+            <p class="note-text">{{ getStudentNoteText(item) }}</p>
+            @if (getStudentSubPoints(item).length) {
+              <ul class="sub-points">
+                @for (sub of getStudentSubPoints(item); track $index) {
+                  <li>{{ sub }}</li>
+                }
+              </ul>
+            }
+          </article>
+        }
+      </section>
+    } @else if (!n.extracted_json?.categories?.teacher_notes?.length) {
+      <div class="text-block">
+        <h3>Extracted text</h3>
+        <pre>{{ n.raw_text }}</pre>
+      </div>
+    }
+
+    @if (n.events.length) {
+      <div class="events-block">
+        <h3>Events</h3>
+        <ul>
+          @for (event of n.events; track event.id) {
+            <li>
+              <span class="type-badge">{{ event.event_type }}</span>
+              <div>
+                <strong>{{ event.title }}</strong>
+                <time>{{ event.event_date | date: 'fullDate' }} · {{ event.event_date | date: 'shortTime' }}</time>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    <button type="button" class="btn btn-danger" (click)="deleteNote()">Delete note</button>
+  </section>
+}

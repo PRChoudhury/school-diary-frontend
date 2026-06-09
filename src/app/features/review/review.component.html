@@ -1,0 +1,144 @@
+<section class="page">
+  <h2>Review extracted text</h2>
+  <p class="hint">Notes are grouped by teacher and student. Edit before saving — only text is stored.</p>
+
+  @if (uncertainFields().length) {
+    <div class="warning" role="status">
+      Please double-check: {{ uncertainFields().join(', ') }}
+    </div>
+  }
+
+  <div class="field">
+    <label for="title">Title</label>
+    <input id="title" type="text" [(ngModel)]="title" />
+  </div>
+
+  @if (summary()) {
+    <div class="summary-block">
+      <h3>Summary</h3>
+      <p>{{ summary() }}</p>
+    </div>
+  }
+
+  <section class="category-section teacher-section">
+    <div class="category-header">
+      <span class="category-badge teacher-badge">Teacher notes</span>
+      <p>Messages to parents — usually starts with “Dear Parent”</p>
+    </div>
+
+    @if (teacherNotes().length === 0) {
+      <p class="empty-category">No teacher notes detected.</p>
+    } @else {
+      @for (note of teacherNotes(); track $index) {
+        <article class="category-card teacher-card">
+          <label [for]="'teacher-' + $index">Teacher message {{ $index + 1 }}</label>
+          <textarea
+            [id]="'teacher-' + $index"
+            rows="4"
+            [ngModel]="note"
+            (ngModelChange)="updateTeacherNote($index, $event)"
+          ></textarea>
+          <button type="button" class="btn-text danger" (click)="removeTeacherNote($index)">Remove</button>
+        </article>
+      }
+    }
+
+    <button type="button" class="btn btn-secondary full" (click)="addTeacherNote()">+ Add teacher note</button>
+  </section>
+
+  <section class="category-section student-section">
+    <div class="category-header">
+      <span class="category-badge student-badge">Student notes</span>
+      <p>Homework, reminders, and class tasks — each point shown separately</p>
+    </div>
+
+    @if (studentNotes().length === 0) {
+      <p class="empty-category">No student notes detected.</p>
+    } @else {
+      @for (note of studentNotes(); track $index; let noteIndex = $index) {
+        <article class="category-card student-card">
+          <div class="student-card-header">
+            <span class="point-badge">Note {{ noteIndex + 1 }}</span>
+          </div>
+          <textarea
+            [id]="'student-' + noteIndex"
+            rows="3"
+            [ngModel]="note.text"
+            (ngModelChange)="updateStudentNoteText(noteIndex, $event)"
+          ></textarea>
+
+          @if (note.sub_points.length) {
+            <ul class="sub-points">
+              @for (sub of note.sub_points; track $index; let subIndex = $index) {
+                <li>
+                  <input
+                    type="text"
+                    [ngModel]="sub"
+                    (ngModelChange)="updateStudentSubPoint(noteIndex, subIndex, $event)"
+                  />
+                  <button type="button" class="btn-text danger" (click)="removeStudentSubPoint(noteIndex, subIndex)">×</button>
+                </li>
+              }
+            </ul>
+          }
+
+          <button type="button" class="btn-text" (click)="addStudentSubPoint(noteIndex)">+ Add detail</button>
+          <button type="button" class="btn-text danger" (click)="removeStudentNote(noteIndex)">Remove note</button>
+        </article>
+      }
+    }
+
+    <button type="button" class="btn btn-secondary full" (click)="addStudentNote()">+ Add student note</button>
+  </section>
+
+  <h3>Events &amp; dates</h3>
+  <p class="hint subtle">Derived from student notes — used for calendar reminders.</p>
+
+  @for (event of events(); track $index) {
+    <article class="event-card">
+      <div class="field">
+        <label>Title</label>
+        <input
+          type="text"
+          [value]="event.title"
+          (input)="updateEvent($index, 'title', $any($event.target).value)"
+        />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Date &amp; time</label>
+          <input
+            type="datetime-local"
+            [value]="toLocalInput(event.event_date)"
+            (input)="onDateChange($index, $any($event.target).value)"
+          />
+        </div>
+        <div class="field">
+          <label>Type</label>
+          <select
+            [value]="event.event_type"
+            (change)="updateEvent($index, 'event_type', $any($event.target).value)"
+          >
+            @for (type of eventTypes; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <button type="button" class="btn-text danger" (click)="removeEvent($index)">Remove</button>
+    </article>
+  }
+
+  <button type="button" class="btn btn-secondary full" (click)="addEvent()">+ Add event</button>
+
+  @if (saveError()) {
+    <p class="warning" role="alert">{{ saveError() }}</p>
+  }
+
+  <div class="actions">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="saving() || !title.trim()">
+      {{ saving() ? 'Saving…' : 'Save note' }}
+    </button>
+  </div>
+</section>

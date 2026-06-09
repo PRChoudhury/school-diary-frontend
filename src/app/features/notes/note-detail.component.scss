@@ -1,0 +1,174 @@
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.detail-header {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0 0 0.25rem;
+  }
+
+  time {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+}
+
+.text-block,
+.events-block {
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  pre {
+    margin: 0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-family: inherit;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+}
+
+.events-block ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+
+    time {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+.type-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.btn-danger {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.category-section {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+}
+
+.teacher-section {
+  background: #f5f3ff;
+  border-color: #c4b5fd;
+}
+
+.student-section {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.category-header {
+  margin-bottom: 0.75rem;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.teacher-badge {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.student-badge {
+  background: #2563eb;
+  color: #fff;
+}
+
+.category-card {
+  margin-bottom: 0.5rem;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+
+  p {
+    margin: 0.35rem 0 0;
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+}
+
+.teacher-card {
+  border-left: 4px solid #7c3aed;
+}
+
+.student-card {
+  border-left: 4px solid #2563eb;
+}
+
+.point-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  text-transform: uppercase;
+}
+
+.note-text {
+  margin: 0.35rem 0 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.sub-points {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+}
