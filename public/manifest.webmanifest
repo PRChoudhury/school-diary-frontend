@@ -1,9 +1,12 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
+  "name": "SchoolDiary",
+  "short_name": "SchoolDiary",
+  "description": "Extract and organize school diary notes with AI-powered text recognition",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "icons/icon-72x72.png",

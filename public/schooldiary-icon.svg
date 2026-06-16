@@ -1,0 +1,44 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#2563eb" rx="100"/>
+
+  <!-- Notebook/Diary body -->
+  <rect x="120" y="100" width="280" height="320" fill="#ffffff" rx="20"/>
+
+  <!-- Spiral binding on left side -->
+  <circle cx="140" cy="140" r="6" fill="#64748b"/>
+  <circle cx="140" cy="180" r="6" fill="#64748b"/>
+  <circle cx="140" cy="220" r="6" fill="#64748b"/>
+  <circle cx="140" cy="260" r="6" fill="#64748b"/>
+  <circle cx="140" cy="300" r="6" fill="#64748b"/>
+  <circle cx="140" cy="340" r="6" fill="#64748b"/>
+
+  <!-- Pages lines (ruled notebook) -->
+  <line x1="160" y1="150" x2="360" y2="150" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="175" x2="360" y2="175" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="200" x2="360" y2="200" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="225" x2="360" y2="225" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="250" x2="360" y2="250" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="275" x2="360" y2="275" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="300" x2="360" y2="300" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="160" y1="325" x2="360" y2="325" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Pen on notebook -->
+  <g transform="translate(280, 160) rotate(-30)">
+    <!-- Pen body -->
+    <rect x="0" y="-4" width="120" height="8" fill="#f59e0b" rx="4"/>
+    <!-- Pen tip -->
+    <polygon points="120,0 130,-5 130,5" fill="#1f2937"/>
+    <!-- Pen cap clip -->
+    <rect x="5" y="-6" width="8" height="12" fill="#1f2937"/>
+  </g>
+
+  <!-- Checkmark accent (representing completed tasks/organization) -->
+  <g transform="translate(340, 350)">
+    <circle cx="0" cy="0" r="18" fill="#10b981" opacity="0.9"/>
+    <path d="M -8 0 L -2 6 L 8 -4" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Calendar date accent -->
+  <text x="200" y="385" font-size="32" font-weight="bold" fill="#2563eb" text-anchor="middle">📅</text>
+</svg>
