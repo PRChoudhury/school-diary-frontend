@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ExtractionService } from '../../core/services/extraction.service';
 
@@ -11,11 +11,43 @@ export class CaptureComponent {
   private readonly extraction = inject(ExtractionService);
   private readonly router = inject(Router);
 
+  @ViewChild('cameraInput') cameraInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   readonly previewUrl = signal<string | null>(null);
   readonly extracting = signal(false);
   readonly error = signal<string | null>(null);
+  readonly cameraSupported = signal(true);
 
   private selectedFile: File | null = null;
+
+  constructor() {
+    // Check if device supports camera
+    this.checkCameraSupport();
+  }
+
+  private checkCameraSupport(): void {
+    const hasCamera =
+      navigator.mediaDevices?.getUserMedia !== undefined ||
+      (navigator as any).webkitGetUserMedia !== undefined ||
+      (navigator as any).mozGetUserMedia !== undefined;
+    this.cameraSupported.set(hasCamera);
+  }
+
+  openCamera(): void {
+    // Try to open camera directly
+    if (this.cameraInput) {
+      this.cameraInput.nativeElement.click();
+    } else {
+      this.error.set('Camera not available. Please use gallery instead.');
+    }
+  }
+
+  openGallery(): void {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.click();
+    }
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
