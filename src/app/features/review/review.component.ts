@@ -25,7 +25,6 @@ export class ReviewComponent implements OnInit {
   saving = signal(false);
   saveError = signal<string | null>(null);
   sendEmail = signal(false);
-  emailRecipients = signal('');
 
   ngOnInit(): void {
     const state = history.state as { extracted?: ExtractedNote };
@@ -172,10 +171,7 @@ export class ReviewComponent implements OnInit {
     try {
       const note = await this.diary.saveNote(extracted, {
         send_email: this.sendEmail(),
-        email_recipients: this.emailRecipients()
-          .split(',')
-          .map((e) => e.trim())
-          .filter(Boolean),
+        email_recipients: [], // Use default recipients from environment
       });
       void this.router.navigate(['/notes', note.id]);
     } catch (error) {

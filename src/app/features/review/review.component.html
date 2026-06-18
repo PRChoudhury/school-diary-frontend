@@ -133,33 +133,17 @@
 
   <!-- Email notification section -->
   <section class="email-section">
-    <div class="email-header">
-      <label for="send-email" class="email-label">
-        <input
-          id="send-email"
-          type="checkbox"
-          [checked]="sendEmail()"
-          (change)="sendEmail.set($any($event.target).checked)"
-          class="email-checkbox"
-        />
-        <span>Send summary via email</span>
-      </label>
-      <p class="email-hint">Notify parents and guardians of extracted notes</p>
-    </div>
-
-    @if (sendEmail()) {
-      <div class="email-input-group">
-        <label for="email-recipients">Recipients (comma-separated)</label>
-        <input
-          id="email-recipients"
-          type="text"
-          placeholder="parent@example.com, guardian@example.com"
-          [(ngModel)]="emailRecipients"
-          [disabled]="saving()"
-        />
-        <p class="email-info">Leave empty to use default recipients from settings</p>
-      </div>
-    }
+    <label for="send-email" class="email-label">
+      <input
+        id="send-email"
+        type="checkbox"
+        [checked]="sendEmail()"
+        (change)="sendEmail.set($any($event.target).checked)"
+        class="email-checkbox"
+      />
+      <span>Send summary via email to parents</span>
+    </label>
+    <p class="email-hint">📧 Automatically send extracted notes to patrali2010@gmail.com and prajc06@gmail.com</p>
   </section>
 
   @if (saveError()) {
