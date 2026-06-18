@@ -95,6 +95,10 @@ export class DiaryService {
       );
       const note = this.mapNote(response);
       this.upsertLocal(note);
+
+      // Refresh grouped notes in case this note was updated
+      await this.refreshGroupedNotes();
+
       return note;
     } catch (error) {
       if (error instanceof HttpErrorResponse && error.status === 404) {
@@ -120,6 +124,10 @@ export class DiaryService {
       );
       const note = this.mapNote(response);
       this.upsertLocal(note);
+
+      // Also update grouped notes
+      await this.refreshGroupedNotes();
+
       return note;
     } catch (error) {
       throw new Error(this.toErrorMessage(error, 'Could not save note.'));
@@ -130,6 +138,9 @@ export class DiaryService {
     try {
       await firstValueFrom(this.http.delete(`${environment.apiUrl}/api/notes/${id}`));
       this.notes.update((current) => current.filter((note) => note.id !== id));
+
+      // Also update grouped notes
+      await this.refreshGroupedNotes();
     } catch (error) {
       throw new Error(this.toErrorMessage(error, 'Could not delete note.'));
     }
