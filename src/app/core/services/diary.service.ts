@@ -109,13 +109,18 @@ export class DiaryService {
     }
   }
 
-  async saveNote(extracted: ExtractedNote): Promise<DiaryNote> {
+  async saveNote(
+    extracted: ExtractedNote,
+    emailOptions?: { send_email: boolean; email_recipients: string[] }
+  ): Promise<DiaryNote> {
     const payload = {
       title: extracted.title,
       raw_text: extracted.raw_text,
       categories: extracted.categories,
       events: extracted.events,
       metadata: extracted.metadata,
+      send_email: emailOptions?.send_email ?? false,
+      email_recipients: emailOptions?.email_recipients ?? [],
     };
 
     try {
