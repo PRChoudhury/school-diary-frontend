@@ -8,6 +8,8 @@ interface DiaryNoteApiResponse {
   id: string;
   title: string;
   raw_text: string;
+  diary_day?: string;
+  diary_date?: string;
   extracted_json?: ExtractedNote;
   created_at: string;
   events: DiaryEvent[];
@@ -18,9 +20,11 @@ export class DiaryService {
   private readonly http = inject(HttpClient);
 
   private readonly notes = signal<DiaryNote[]>([]);
+  private readonly groupedNotes = signal<Record<string, DiaryNote[]>>({});
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly notesSignal = this.notes.asReadonly();
+  readonly groupedNotesSignal = this.groupedNotes.asReadonly();
 
   constructor() {
     void this.refreshNotes();
@@ -56,11 +60,31 @@ export class DiaryService {
       const response = await firstValueFrom(
         this.http.get<DiaryNoteApiResponse[]>(`${environment.apiUrl}/api/notes`)
       );
-      this.notes.set(response.map((note) => this.mapNote(note)));
+      const mappedNotes = response.map((note) => this.mapNote(note));
+      this.notes.set(mappedNotes);
+
+      // Also fetch grouped data
+      await this.refreshGroupedNotes();
     } catch (error) {
       this.error.set(this.toErrorMessage(error, 'Could not load notes.'));
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  async refreshGroupedNotes(): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<Record<string, DiaryNoteApiResponse[]>>(`${environment.apiUrl}/api/notes/grouped-by-date`)
+      );
+      // Map each date's notes
+      const mapped: Record<string, DiaryNote[]> = {};
+      for (const [date, notes] of Object.entries(response)) {
+        mapped[date] = notes.map((note) => this.mapNote(note));
+      }
+      this.groupedNotes.set(mapped);
+    } catch (error) {
+      console.error('Could not load grouped notes:', error);
     }
   }
 
@@ -116,6 +140,8 @@ export class DiaryService {
       id: note.id,
       title: note.title,
       raw_text: note.raw_text,
+      diary_day: note.diary_day,
+      diary_date: note.diary_date,
       extracted_json: note.extracted_json,
       created_at: note.created_at,
       events: note.events,

@@ -1,33 +1,66 @@
-<section class="page">
-  <h2>Past notes</h2>
-  <p class="hint">Saved diary entries (text only — no images stored).</p>
+<section class="notes-container">
+  <div class="notes-header">
+    <div>
+      <h1>School Diary</h1>
+      <p class="subtitle">Saved diary entries organized by date</p>
+    </div>
+    <a routerLink="/capture" class="btn btn-primary btn-lg">
+      <span class="icon">📸</span> Scan New Note
+    </a>
+  </div>
 
   @if (loading()) {
-    <p class="hint">Loading notes…</p>
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading your notes...</p>
+    </div>
   } @else if (error()) {
-    <div class="empty">
-      <p>{{ error() }}</p>
-      <button type="button" class="btn btn-primary" (click)="retry()">Retry</button>
+    <div class="error-state">
+      <p class="error-icon">⚠️</p>
+      <p class="error-message">{{ error() }}</p>
+      <button type="button" class="btn btn-secondary" (click)="retry()">
+        Try Again
+      </button>
     </div>
   } @else if (notes().length === 0) {
-    <div class="empty">
-      <p>No notes yet.</p>
-      <a routerLink="/capture" class="btn btn-primary">Scan your first note</a>
+    <div class="empty-state">
+      <p class="empty-icon">📔</p>
+      <h2>No notes yet</h2>
+      <p>Start by scanning your first school diary page</p>
+      <a routerLink="/capture" class="btn btn-primary">Scan Your First Note</a>
     </div>
   } @else {
-    <ul class="note-list">
-      @for (note of notes(); track note.id) {
-        <li>
-          <a [routerLink]="['/notes', note.id]" class="note-card">
-            <div class="note-header">
-              <strong>{{ note.title }}</strong>
-              <time>{{ note.created_at | date: 'mediumDate' }}</time>
-            </div>
-            <p class="excerpt">{{ note.raw_text }}</p>
-            <span class="badge">{{ note.events.length }} event(s)</span>
-          </a>
-        </li>
+    <div class="notes-grid">
+      @for (date of sortedDates(); track date) {
+        <div class="date-section">
+          <div class="date-header">
+            <h2 class="date-label">{{ date }}</h2>
+            <span class="note-count">{{ groupedNotes()[date].length }} note(s)</span>
+          </div>
+
+          <div class="notes-list">
+            @for (note of groupedNotes()[date]; track note.id) {
+              <a [routerLink]="['/notes', note.id]" class="note-card">
+                <div class="note-card-header">
+                  <h3 class="note-title">{{ note.title }}</h3>
+                  @if (note.diary_day) {
+                    <span class="day-badge">{{ note.diary_day }}</span>
+                  }
+                </div>
+
+                <p class="note-excerpt">{{ note.raw_text | slice: 0: 150 }}...</p>
+
+                <div class="note-card-footer">
+                  <span class="event-badge" *ngIf="note.events.length > 0">
+                    📅 {{ note.events.length }} event(s)
+                  </span>
+                  <time class="note-date">{{ note.created_at | date: 'short' }}</time>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
       }
-    </ul>
+    </div>
   }
 </section>

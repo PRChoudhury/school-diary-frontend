@@ -35,6 +35,8 @@ export interface DiaryNote {
   id: string;
   title: string;
   raw_text: string;
+  diary_day?: string;  // Day of week (e.g., "Thursday")
+  diary_date?: string; // Date from diary (e.g., "5-3-26")
   extracted_json?: ExtractedNote;
   created_at: string;
   events: DiaryEvent[];
